@@ -1,38 +1,20 @@
-import { useState } from 'react';
-import './App.css';
 import data from './data/data';
-import { FaAngleUp, FaAngleDown } from "react-icons/fa";
+import { Container, Heading } from '@chakra-ui/react';
+import SingleQuestion from './components/SingleQuestion';
+import './App.css';
 
 function App() {
-  const [ showInfo, setShowInfo ] = useState(null);
-
-  // Alternate Way
-  const toggleHandler = (id) => {
-    if(showInfo === id){
-      return setShowInfo(null)
-     }
-    setShowInfo(id);
-  };
-
   return (
-    <div className='wrapper'>
-      <h1>Questions</h1>
-      <ul>
+    <Container maxW='3xl'>
+      <Heading color='teal' align='center' my='30px'>Question & Answers</Heading>
         {
           data.map( question => {
             return (
-              <li key={ question.id } className='card'>
-                <h3>
-                  {question.title}
-                  <span onClick={ () => toggleHandler(question.id) }>{showInfo === question.id ? <FaAngleUp /> : <FaAngleDown />}</span>
-                </h3>
-                <p className={ showInfo === question.id ? "info show" : "info" }>{ question.info }</p>
-              </li>
+              <SingleQuestion question={ question } />
             )
           })
         }
-      </ul>
-    </div>
+    </Container>
   );
 }
 
